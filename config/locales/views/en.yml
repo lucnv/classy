@@ -98,6 +98,7 @@ en:
     reviews:
       index:
         new_review: New review
+        filter: Filter
       new:
         create: Create
   reviews:

@@ -2,7 +2,9 @@ class Branch::ReviewsController < Branch::BaseController
   before_action :authorize_create_review, only: [:create, :update]
 
   def index
-    @reviews = displayable_reviews.decorate
+    @q = displayable_reviews.ransack params[:q]
+    @q.sorts = default_sorting_option if @q.sorts.empty?
+    @reviews = @q.result.includes(:user).decorate
   end
 
   def new
@@ -32,9 +34,13 @@ class Branch::ReviewsController < Branch::BaseController
 
   def displayable_reviews
     if user_signed_in?
-      @branch.reviews.verified.with_voted_type_by_user(current_user).recent_created.includes(:user)
+      @branch.reviews.verified.with_voted_type_by_user(current_user)
     else
-      @branch.reviews.verified.recent_created.includes(:user)
+      @branch.reviews.verified
     end
+  end
+
+  def default_sorting_option
+    Review::SORTING_OPTIONS.first[:value]
   end
 end
