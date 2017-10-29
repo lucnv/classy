@@ -1,4 +1,9 @@
 class Review < ApplicationRecord
+  SORTING_OPTIONS = [
+    {name: :newest, value: "created_at asc"},
+    {name: :most_voting, value: "vote_points_cached desc"}
+  ]
+
   belongs_to :user
   belongs_to :branch
   has_many :comments, dependent: :destroy
