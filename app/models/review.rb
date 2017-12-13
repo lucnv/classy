@@ -11,10 +11,7 @@ class Review < ApplicationRecord
   belongs_to :branch, optional: true
   has_many :comments, dependent: :destroy
   has_many :votes
-  has_many :review_verifications, dependent: :destroy
   has_many :reports, as: :reportable, dependent: :destroy
-  has_many :created_notifications, class_name: Notification.name, as: :creatable,
-    dependent: :destroy
 
   before_save :calculate_summary_rating, if: :rating_criteria_changed?
   after_save :update_center_summary_rating_cached, if: :influence_center_rating?

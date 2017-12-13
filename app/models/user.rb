@@ -3,17 +3,13 @@ class User < ApplicationRecord
 
   has_one :center_management
   has_one :managed_center, through: :center_management, source: :center
-  has_many :branch_managements
-  has_many :managed_branches, through: :branch_managements, source: :branch
-  has_many :center_requests
   has_many :reviews
   has_many :comments
   has_many :user_comments, class_name: UserComment.name
   has_many :center_comments, class_name: CenterComment.name
   has_many :votes
   has_many :reports
-  has_many :received_notifications, class_name: User.name, foreign_key: :recipient_id
-  has_many :notifications
+  has_many :received_notifications, class_name: Notification.name, foreign_key: :recipient_id
 
   PERSONAL_INFORMATION_PARAMS = [:first_name, :last_name, :phone_number]
   ACCOUNT_INFORMATION_PARAMS = [:username, :email, :current_password]

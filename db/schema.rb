@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207034535) do
+ActiveRecord::Schema.define(version: 20171212210408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,9 +27,7 @@ ActiveRecord::Schema.define(version: 20171207034535) do
   create_table "branches", force: :cascade do |t|
     t.bigint "center_id"
     t.string "name"
-    t.string "avatar"
     t.integer "status"
-    t.float "cached_avarage_rating"
     t.text "description"
     t.bigint "city_id"
     t.bigint "district_id"
@@ -38,10 +36,8 @@ ActiveRecord::Schema.define(version: 20171207034535) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
     t.float "latitude"
     t.float "longitude"
-    t.index ["center_id", "slug"], name: "index_branches_on_center_id_and_slug", unique: true
     t.index ["center_id"], name: "index_branches_on_center_id"
     t.index ["city_id"], name: "index_branches_on_city_id"
     t.index ["district_id"], name: "index_branches_on_district_id"
@@ -110,12 +106,10 @@ ActiveRecord::Schema.define(version: 20171207034535) do
     t.string "type"
     t.bigint "user_id"
     t.bigint "review_id"
-    t.bigint "branch_id"
     t.text "content"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["branch_id"], name: "index_comments_on_branch_id", where: "(deleted_at IS NULL)"
     t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["review_id"], name: "index_comments_on_review_id", where: "(deleted_at IS NULL)"
     t.index ["user_id"], name: "index_comments_on_user_id", where: "(deleted_at IS NULL)"
@@ -164,14 +158,8 @@ ActiveRecord::Schema.define(version: 20171207034535) do
     t.boolean "is_read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.string "data"
-    t.string "creatable_type"
-    t.bigint "creatable_id"
-    t.index ["creatable_type", "creatable_id"], name: "index_notifications_on_creatable_type_and_creatable_id"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
     t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
-    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -281,7 +269,6 @@ ActiveRecord::Schema.define(version: 20171207034535) do
   add_foreign_key "center_managements", "users"
   add_foreign_key "center_requests", "users"
   add_foreign_key "centers", "categories"
-  add_foreign_key "comments", "branches"
   add_foreign_key "comments", "reviews"
   add_foreign_key "comments", "users"
   add_foreign_key "course_classifications", "categories"

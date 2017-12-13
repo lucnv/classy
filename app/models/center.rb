@@ -5,7 +5,6 @@ class Center < ApplicationRecord
   belongs_to :center_category, foreign_key: :category_id
   has_many :center_managements
   has_many :branches
-  has_many :center_categories
   has_many :active_branches, ->{active}, class_name: Branch.name
   has_many :cities, ->{distinct}, through: :branches
   has_many :active_branches_cities, through: :active_branches,

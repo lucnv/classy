@@ -5,8 +5,6 @@ class Branch < ApplicationRecord
   belongs_to :center
   belongs_to :city
   belongs_to :district
-  has_many :branch_managements
-  has_many :branch_managers, through: :branch_managements, source: :user
   has_many :reviews
   has_many :comments
 

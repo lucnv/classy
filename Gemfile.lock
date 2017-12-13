@@ -241,6 +241,7 @@ GEM
     rack (2.0.3)
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
+    railroady (1.5.3)
     rails (5.1.4)
       actioncable (= 5.1.4)
       actionmailer (= 5.1.4)
@@ -385,6 +386,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.7)
   pundit
+  railroady
   rails (~> 5.1.4)
   ransack!
   redis (~> 3.0)
@@ -404,4 +406,4 @@ DEPENDENCIES
   wicked
 
 BUNDLED WITH
-   1.16.0.pre.3
+   1.16.0
